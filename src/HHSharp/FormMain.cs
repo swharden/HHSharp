@@ -94,9 +94,9 @@ namespace HHSharp
             {
                 hh.Iterate(stimulus[i], stepSizeMsec);
                 voltage[i] = hh.Vm;
-                stateH[i] = hh.h.state;
-                stateM[i] = hh.m.state;
-                stateN[i] = hh.n.state;
+                stateH[i] = hh.h.activity;
+                stateM[i] = hh.m.activity;
+                stateN[i] = hh.n.activity;
             }
 
             double elapsedSec = (double)stopwatch.ElapsedTicks / Stopwatch.Frequency;
