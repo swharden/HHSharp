@@ -2,80 +2,80 @@
 
 namespace HHSharp
 {
-    public abstract class VoltageDependentGate
+    public abstract class VoltageGate
     {
-        public double alpha, beta, activation;
-        public double inactivation { get { return 1 - activation; } }
-        public override string ToString() { return $"alpha={alpha}, beta={beta}, activation={activation}"; }
+        public double alpha; // rate of opening (fraction / msec)
+        public double beta; // rate of closing (fraction / msec)
+        public double activation; // activation fraction (0-1)
+        public double activationChangePerMs { get { return alpha * (1 - activation) - beta * activation; } }
         public abstract void UpdateTimeConstants(double Vm);
+        public override string ToString() { return $"alpha={alpha}, beta={beta}, activation={activation}"; }
         public void SetInfiniteState() { activation = alpha / (alpha + beta); }
-        public void StepForward(double stepSizeMs)
-        {
-            double activationChangePerMs = alpha * inactivation - beta * activation;
-            activation += activationChangePerMs * stepSizeMs;
-        }
+        public void StepForward(double stepSizeMs) { activation += activationChangePerMs * stepSizeMs; }
     }
 
-    public class MGate : VoltageDependentGate // voltage-gated sodium channel activation gate
+    public class VgscActivationGate : VoltageGate
     {
         public override void UpdateTimeConstants(double Vm)
         {
-            alpha = .1 * ((25 - Vm) / (Math.Exp((25 - Vm) / 10) - 1));
-            beta = 4 * Math.Exp(-Vm / 18);
+            alpha = .1 * ((25 - Vm) / (Math.Exp((25 - Vm) / 10) - 1)); // Hodgkin & Huxley (1952) Equation 20
+            beta = 4 * Math.Exp(-Vm / 18); // Hodgkin & Huxley (1952) Equation 21
         }
     }
 
-    public class HGate : VoltageDependentGate // voltage-gated sodium channel inactivation gate
+    public class VgscInactivationGate : VoltageGate
     {
         public override void UpdateTimeConstants(double Vm)
         {
-            alpha = .07 * Math.Exp(-Vm / 20);
-            beta = 1 / (Math.Exp((30 - Vm) / 10) + 1);
+            alpha = .07 * Math.Exp(-Vm / 20); // Hodgkin & Huxley (1952) Equation 23
+            beta = 1 / (Math.Exp((30 - Vm) / 10) + 1); // Hodgkin & Huxley(1952) Equation 24
         }
     }
 
-    public class NGate : VoltageDependentGate // voltage-gated potassium channel activation gate
+    public class VgkcActivationGate : VoltageGate
     {
         public override void UpdateTimeConstants(double Vm)
         {
-            alpha = .01 * ((10 - Vm) / (Math.Exp((10 - Vm) / 10) - 1));
-            beta = .125 * Math.Exp(-Vm / 80);
+            alpha = .01 * ((10 - Vm) / (Math.Exp((10 - Vm) / 10) - 1)); // Hodgkin & Huxley (1952) Equation 12
+            beta = .125 * Math.Exp(-Vm / 80); // Hodgkin & Huxley (1952) Equation 13
         }
     }
 
     public class HHModel
     {
+        // default values are from Hodgkin & Huxley (1952) Table 3
         public double ENa = 115, EK = -12, EKleak = 10.6;
         public double gNa = 120, gK = 36, gKleak = 0.3;
         public double Cm = 1;
+
+        public VoltageGate m = new VgscActivationGate();
+        public VoltageGate h = new VgscInactivationGate();
+        public VoltageGate n = new VgkcActivationGate();
+
         public double INa, IK, IKleak, Isum, Vm;
 
-        public VoltageDependentGate m = new MGate(), h = new HGate(), n = new NGate();
-
-        public HHModel(double startingVoltage = 0)
+        public HHModel(double initialVoltageOffset = 0)
         {
-            Vm = startingVoltage;
-            UpdateAllGateTimeConstants(startingVoltage);
-            SetAllGatesToInfiniteState();
+            Vm = initialVoltageOffset;
+            UpdateAllGateTimeConstants(Vm);
+            m.SetInfiniteState();
+            h.SetInfiniteState();
+            n.SetInfiniteState();
         }
 
-        public override string ToString() { return $"Vm={Vm}\nm gate: {m}\nh gate: {h}\nn gate: {n}"; }
+        public override string ToString()
+        {
+            return $"Vm={Vm}\nm gate: {m}\nh gate: {h}\nn gate: {n}\nINa={INa}\nIK={IK}\nIKleak={IKleak}";
+        }
 
-        public void UpdateAllGateTimeConstants(double Vm)
+        private void UpdateAllGateTimeConstants(double Vm)
         {
             m.UpdateTimeConstants(Vm);
             h.UpdateTimeConstants(Vm);
             n.UpdateTimeConstants(Vm);
         }
 
-        public void SetAllGatesToInfiniteState()
-        {
-            m.SetInfiniteState();
-            h.SetInfiniteState();
-            n.SetInfiniteState();
-        }
-
-        public void UpdateCellProperties(double stimulusCurrent, double deltaTms)
+        private void UpdateCellProperties(double stimulusCurrent, double deltaTms)
         {
             INa = Math.Pow(m.activation, 3) * gNa * h.activation * (Vm - ENa);
             IK = Math.Pow(n.activation, 4) * gK * (Vm - EK);
@@ -84,7 +84,7 @@ namespace HHSharp
             Vm += deltaTms * Isum / Cm;
         }
 
-        public void UpdateGateStates(double deltaTms)
+        private void UpdateGateStates(double deltaTms)
         {
             m.StepForward(deltaTms);
             h.StepForward(deltaTms);
