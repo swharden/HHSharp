@@ -58,6 +58,9 @@
             this.label11 = new System.Windows.Forms.Label();
             this.nudStimCurrent = new System.Windows.Forms.NumericUpDown();
             this.formsPlot2 = new ScottPlot.FormsPlot();
+            this.formsPlot3 = new ScottPlot.FormsPlot();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.rtbStatus = new System.Windows.Forms.RichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.nudDurationMs)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCm)).BeginInit();
@@ -71,24 +74,28 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudGNa)).BeginInit();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudStimCurrent)).BeginInit();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // formsPlot1
             // 
-            this.formsPlot1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.formsPlot1.Location = new System.Drawing.Point(228, 9);
+            this.formsPlot1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.formsPlot1.Location = new System.Drawing.Point(3, 3);
             this.formsPlot1.Name = "formsPlot1";
-            this.formsPlot1.Size = new System.Drawing.Size(644, 241);
+            this.formsPlot1.Size = new System.Drawing.Size(863, 197);
             this.formsPlot1.TabIndex = 0;
-            this.formsPlot1.MouseClicked += new System.Windows.Forms.MouseEventHandler(this.formsPlot1_MouseClicked);
+            this.formsPlot1.MouseClicked += new System.Windows.Forms.MouseEventHandler(this.formsPlot2_MouseClicked);
             // 
             // nudDurationMs
             // 
             this.nudDurationMs.Location = new System.Drawing.Point(94, 15);
             this.nudDurationMs.Maximum = new decimal(new int[] {
             10000,
+            0,
+            0,
+            0});
+            this.nudDurationMs.Minimum = new decimal(new int[] {
+            1,
             0,
             0,
             0});
@@ -127,11 +134,11 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(18, 43);
+            this.label3.Location = new System.Drawing.Point(11, 43);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(70, 13);
+            this.label3.Size = new System.Drawing.Size(68, 13);
             this.label3.TabIndex = 8;
-            this.label3.Text = "Capacitance:";
+            this.label3.Text = "Cm: (µF/cm²)";
             // 
             // nudCm
             // 
@@ -205,7 +212,7 @@
             this.groupBox2.Size = new System.Drawing.Size(203, 110);
             this.groupBox2.TabIndex = 9;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Reversal Potential (mV)";
+            this.groupBox2.Text = "Equilibrium Potential (mV)";
             // 
             // label15
             // 
@@ -311,7 +318,7 @@
             this.groupBox3.Size = new System.Drawing.Size(203, 104);
             this.groupBox3.TabIndex = 10;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Channel Conductance";
+            this.groupBox3.Text = "Channel Conductance (µA/cm²)";
             // 
             // label8
             // 
@@ -464,13 +471,13 @@
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(8, 21);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(44, 13);
+            this.label11.Size = new System.Drawing.Size(88, 13);
             this.label11.TabIndex = 4;
-            this.label11.Text = "Current:";
+            this.label11.Text = "Current (µA/cm²):";
             // 
             // nudStimCurrent
             // 
-            this.nudStimCurrent.Location = new System.Drawing.Point(58, 19);
+            this.nudStimCurrent.Location = new System.Drawing.Point(105, 19);
             this.nudStimCurrent.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -493,20 +500,59 @@
             // 
             // formsPlot2
             // 
-            this.formsPlot2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.formsPlot2.Location = new System.Drawing.Point(228, 256);
+            this.formsPlot2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.formsPlot2.Location = new System.Drawing.Point(3, 409);
             this.formsPlot2.Name = "formsPlot2";
-            this.formsPlot2.Size = new System.Drawing.Size(644, 228);
+            this.formsPlot2.Size = new System.Drawing.Size(863, 197);
             this.formsPlot2.TabIndex = 12;
             this.formsPlot2.MouseClicked += new System.Windows.Forms.MouseEventHandler(this.formsPlot2_MouseClicked);
+            // 
+            // formsPlot3
+            // 
+            this.formsPlot3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.formsPlot3.Location = new System.Drawing.Point(3, 206);
+            this.formsPlot3.Name = "formsPlot3";
+            this.formsPlot3.Size = new System.Drawing.Size(863, 197);
+            this.formsPlot3.TabIndex = 13;
+            this.formsPlot3.MouseClicked += new System.Windows.Forms.MouseEventHandler(this.formsPlot3_MouseClicked);
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Controls.Add(this.formsPlot2, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.formsPlot3, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.formsPlot1, 0, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(221, 12);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(869, 609);
+            this.tableLayoutPanel1.TabIndex = 14;
+            // 
+            // rtbStatus
+            // 
+            this.rtbStatus.BackColor = System.Drawing.SystemColors.Control;
+            this.rtbStatus.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.rtbStatus.Enabled = false;
+            this.rtbStatus.Location = new System.Drawing.Point(12, 467);
+            this.rtbStatus.Name = "rtbStatus";
+            this.rtbStatus.Size = new System.Drawing.Size(203, 96);
+            this.rtbStatus.TabIndex = 15;
+            this.rtbStatus.Text = "status";
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(884, 496);
-            this.Controls.Add(this.formsPlot2);
+            this.ClientSize = new System.Drawing.Size(1102, 633);
+            this.Controls.Add(this.rtbStatus);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -514,7 +560,6 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.formsPlot1);
             this.Name = "FormMain";
             this.Text = "HHSharp";
             ((System.ComponentModel.ISupportInitialize)(this.nudDurationMs)).EndInit();
@@ -534,6 +579,7 @@
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudStimCurrent)).EndInit();
+            this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -571,6 +617,9 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.NumericUpDown nudStimCurrent;
         private ScottPlot.FormsPlot formsPlot2;
+        private ScottPlot.FormsPlot formsPlot3;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.RichTextBox rtbStatus;
     }
 }
 

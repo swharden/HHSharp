@@ -16,9 +16,21 @@ namespace HHSharp
         public FormMain()
         {
             InitializeComponent();
-            btnRun_Click(null, null);
+
+            formsPlot1.plt.Title("Membrane Potential (Vm)");
+            formsPlot1.plt.YLabel("Potential (mV)");
             formsPlot1.plt.mouseTracker.lowQualityWhileInteracting = false;
+
+            formsPlot3.plt.Title("Stimulus");
+            formsPlot3.plt.YLabel("Current (µA/cm²)");
+            formsPlot3.plt.mouseTracker.lowQualityWhileInteracting = false;
+
+            formsPlot2.plt.Title("Active Conductance Gate States");
+            formsPlot2.plt.YLabel("Activation");
+            formsPlot2.plt.XLabel("Simulation Time (milliseconds)");
             formsPlot2.plt.mouseTracker.lowQualityWhileInteracting = false;
+
+            RunSimulation();
         }
 
         private double[] GenerateStimulusWaveform(int pointCount)
@@ -88,15 +100,19 @@ namespace HHSharp
             }
 
             double elapsedSec = (double)stopwatch.ElapsedTicks / Stopwatch.Frequency;
-            string message = string.Format("simulation completed in {0:0.00} ms ({1:0.00} Hz)", elapsedSec * 1000.0, 1 / elapsedSec);
-            Debug.WriteLine(message);
+            string message = string.Format("Simulated {2:n0} time points in {0:0.00} ms ({1:0.00} Hz)",
+                elapsedSec * 1000.0, 1 / elapsedSec, pointCount);
+            rtbStatus.Text = message;
 
             formsPlot1.plt.Clear();
-            formsPlot1.plt.PlotSignal(voltage, sampleRate, yOffset: -70);
+            formsPlot1.plt.PlotSignal(voltage, sampleRate, yOffset: -70, color: Color.Blue);
             formsPlot1.plt.AxisAuto();
-            formsPlot1.plt.YLabel("Membrane Potential (mV)");
-            formsPlot1.plt.XLabel("Simulation Time (milliseconds)");
             formsPlot1.Render();
+
+            formsPlot3.plt.Clear();
+            formsPlot3.plt.PlotSignal(stimulus, sampleRate, color: Color.Red);
+            formsPlot3.plt.AxisAuto();
+            formsPlot3.Render();
 
             formsPlot2.plt.Clear();
             formsPlot2.plt.PlotSignal(stateH, sampleRate, label: "h");
@@ -104,9 +120,8 @@ namespace HHSharp
             formsPlot2.plt.PlotSignal(stateN, sampleRate, label: "m");
             formsPlot2.plt.Legend();
             formsPlot2.plt.AxisAuto();
-            formsPlot2.plt.YLabel("Channel State");
-            formsPlot2.plt.XLabel("Simulation Time (milliseconds)");
             formsPlot2.Render();
+
         }
 
         private void btnRun_Click(object sender, EventArgs e) { RunSimulation(); }
@@ -127,13 +142,25 @@ namespace HHSharp
         private void formsPlot1_MouseClicked(object sender, MouseEventArgs e)
         {
             formsPlot2.plt.MatchAxis(formsPlot1.plt, horizontal: true, vertical: false);
+            formsPlot3.plt.MatchAxis(formsPlot1.plt, horizontal: true, vertical: false);
             formsPlot2.Render();
+            formsPlot3.Render();
         }
 
         private void formsPlot2_MouseClicked(object sender, MouseEventArgs e)
         {
             formsPlot1.plt.MatchAxis(formsPlot2.plt, horizontal: true, vertical: false);
+            formsPlot3.plt.MatchAxis(formsPlot2.plt, horizontal: true, vertical: false);
             formsPlot1.Render();
+            formsPlot3.Render();
+        }
+
+        private void formsPlot3_MouseClicked(object sender, MouseEventArgs e)
+        {
+            formsPlot1.plt.MatchAxis(formsPlot3.plt, horizontal: true, vertical: false);
+            formsPlot2.plt.MatchAxis(formsPlot3.plt, horizontal: true, vertical: false);
+            formsPlot1.Render();
+            formsPlot2.Render();
         }
 
         private void label6_MouseEnter(object sender, EventArgs e)
