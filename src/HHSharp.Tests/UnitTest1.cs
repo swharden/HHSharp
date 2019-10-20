@@ -34,6 +34,10 @@ namespace HHSharp.Tests
             Assert.IsTrue(CloseEnough(model.n.alpha, 0.114164951305969));
             Assert.IsTrue(CloseEnough(model.n.beta, 0.106636971180963));
             Assert.IsTrue(CloseEnough(model.n.activation, 0.73607630180196));
+
+            Assert.IsTrue(CloseEnough(model.INa, -184.843379721599));
+            Assert.IsTrue(CloseEnough(model.IK, 261.831569991066));
+            Assert.IsTrue(CloseEnough(model.IKleak, 0.633203138741839));
         }
     }
 }
