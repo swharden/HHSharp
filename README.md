@@ -3,7 +3,7 @@
 
 ![](dev/screenshot.png)
 
-HHSharp uses a simulation model which calculates channel conductances and membrane potential at discrete time points eliminating the need for a differential equation solver. The core model simulation code ([HHModel.cs](src/HHSharp/HHModel.cs)) was written to be easy to understand and is less than 100 lines of code. [ScottPlot](https://github.com/swharden/ScottPlot) is used interactively display simulation data.
+HHSharp uses a simulation model which calculates channel conductances and membrane potential at discrete time points eliminating the need for a differential equation solver. The core model and simulation routine ([HHModel.cs](src/HHSharp/HHModel.cs)) was written to be easy to understand and is fewer than 100 lines of code. [ScottPlot](https://github.com/swharden/ScottPlot) is used interactively display simulation results.
 
 ### Download
 * Click-to-run EXE: **[HHSharp.zip](/download/HHSharp.zip)**
