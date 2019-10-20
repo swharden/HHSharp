@@ -43,16 +43,13 @@ namespace HHSharp
 
     public class HHModel
     {
-        // default values are from Hodgkin & Huxley (1952) Table 3
-        public double ENa = 115, EK = -12, EKleak = 10.6;
-        public double gNa = 120, gK = 36, gKleak = 0.3;
-        public double Cm = 1;
+        public double ENa = 115, EK = -12, EKleak = 10.6; // Hodgkin & Huxley (1952) Table 3
+        public double gNa = 120, gK = 36, gKleak = 0.3; // Hodgkin & Huxley (1952) Table 3
+        public double Cm = 1; // Hodgkin & Huxley (1952) Table 3
 
         public VoltageGate m = new VgscActivationGate();
         public VoltageGate h = new VgscInactivationGate();
         public VoltageGate n = new VgkcActivationGate();
-
-        public double INa, IK, IKleak, Isum, Vm;
 
         public HHModel(double initialVoltageOffset = 0)
         {
@@ -75,7 +72,8 @@ namespace HHSharp
             n.UpdateTimeConstants(Vm);
         }
 
-        private void UpdateCellProperties(double stimulusCurrent, double deltaTms)
+        public double INa, IK, IKleak, Isum, Vm;
+        private void UpdateCurrentsAndVoltage(double stimulusCurrent, double deltaTms) // Hodgkin & Huxley (1952) equation 33
         {
             INa = Math.Pow(m.activation, 3) * gNa * h.activation * (Vm - ENa);
             IK = Math.Pow(n.activation, 4) * gK * (Vm - EK);
@@ -84,18 +82,13 @@ namespace HHSharp
             Vm += deltaTms * Isum / Cm;
         }
 
-        private void UpdateGateStates(double deltaTms)
-        {
-            m.StepForward(deltaTms);
-            h.StepForward(deltaTms);
-            n.StepForward(deltaTms);
-        }
-
         public void StepForward(double stimulusCurrent, double stepSizeMs)
         {
             UpdateAllGateTimeConstants(Vm);
-            UpdateCellProperties(stimulusCurrent, stepSizeMs);
-            UpdateGateStates(stepSizeMs);
+            UpdateCurrentsAndVoltage(stimulusCurrent, stepSizeMs);
+            m.StepForward(stepSizeMs);
+            h.StepForward(stepSizeMs);
+            n.StepForward(stepSizeMs);
         }
     }
 }
