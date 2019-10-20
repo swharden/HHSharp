@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29411.108
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HHSharp", "HHSharp\HHSharp.csproj", "{825B249D-012B-4D5D-9CEE-9B0E4CB149D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HHSharp.Tests", "HHSharp.Tests\HHSharp.Tests.csproj", "{30340C84-207E-431D-BC6A-12E9651C9B7D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HHSharp.Tests", "HHSharp.Tests\HHSharp.Tests.csproj", "{0184508F-0683-4BED-998D-E782B2C957EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{825B249D-012B-4D5D-9CEE-9B0E4CB149D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{825B249D-012B-4D5D-9CEE-9B0E4CB149D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{825B249D-012B-4D5D-9CEE-9B0E4CB149D0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{30340C84-207E-431D-BC6A-12E9651C9B7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{30340C84-207E-431D-BC6A-12E9651C9B7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{30340C84-207E-431D-BC6A-12E9651C9B7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{30340C84-207E-431D-BC6A-12E9651C9B7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0184508F-0683-4BED-998D-E782B2C957EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0184508F-0683-4BED-998D-E782B2C957EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0184508F-0683-4BED-998D-E782B2C957EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0184508F-0683-4BED-998D-E782B2C957EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

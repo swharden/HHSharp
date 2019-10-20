@@ -8,12 +8,7 @@ namespace HHSharp
         public double inactivation { get { return 1 - activation; } }
         public override string ToString() { return $"alpha={alpha}, beta={beta}, activation={activation}"; }
         public abstract void UpdateTimeConstants(double Vm);
-
-        public void SetInfiniteState()
-        {
-            activation = alpha / (alpha + beta);
-        }
-
+        public void SetInfiniteState() { activation = alpha / (alpha + beta); }
         public void StepForward(double stepSizeMs)
         {
             double activationChangePerMs = alpha * inactivation - beta * activation;
@@ -52,34 +47,40 @@ namespace HHSharp
     {
         public double ENa = 115, EK = -12, EKleak = 10.6;
         public double gNa = 120, gK = 36, gKleak = 0.3;
-        public double Cm = 1, Vm = 0;
+        public double Cm = 1;
+        public double INa, IK, IKleak, Isum, Vm;
 
         public VoltageDependentGate m = new MGate(), h = new HGate(), n = new NGate();
 
         public HHModel(double startingVoltage = 0)
         {
             Vm = startingVoltage;
-            UpdateGateTimeConstants(startingVoltage);
-            m.SetInfiniteState();
-            h.SetInfiniteState();
-            n.SetInfiniteState();
+            UpdateAllGateTimeConstants(startingVoltage);
+            SetAllGatesToInfiniteState();
         }
 
         public override string ToString() { return $"Vm={Vm}\nm gate: {m}\nh gate: {h}\nn gate: {n}"; }
 
-        public void UpdateGateTimeConstants(double Vm)
+        public void UpdateAllGateTimeConstants(double Vm)
         {
             m.UpdateTimeConstants(Vm);
             h.UpdateTimeConstants(Vm);
             n.UpdateTimeConstants(Vm);
         }
 
-        public void UpdateCellVoltage(double stimulusCurrent, double deltaTms)
+        public void SetAllGatesToInfiniteState()
         {
-            double INa = Math.Pow(m.activation, 3) * gNa * h.activation * (Vm - ENa);
-            double IK = Math.Pow(n.activation, 4) * gK * (Vm - EK);
-            double IKleak = gKleak * (Vm - EKleak);
-            double Isum = stimulusCurrent - INa - IK - IKleak;
+            m.SetInfiniteState();
+            h.SetInfiniteState();
+            n.SetInfiniteState();
+        }
+
+        public void UpdateCellProperties(double stimulusCurrent, double deltaTms)
+        {
+            INa = Math.Pow(m.activation, 3) * gNa * h.activation * (Vm - ENa);
+            IK = Math.Pow(n.activation, 4) * gK * (Vm - EK);
+            IKleak = gKleak * (Vm - EKleak);
+            Isum = stimulusCurrent - INa - IK - IKleak;
             Vm += deltaTms * Isum / Cm;
         }
 
@@ -92,8 +93,8 @@ namespace HHSharp
 
         public void StepForward(double stimulusCurrent, double stepSizeMs)
         {
-            UpdateGateTimeConstants(Vm);
-            UpdateCellVoltage(stimulusCurrent, stepSizeMs);
+            UpdateAllGateTimeConstants(Vm);
+            UpdateCellProperties(stimulusCurrent, stepSizeMs);
             UpdateGateStates(stepSizeMs);
         }
     }

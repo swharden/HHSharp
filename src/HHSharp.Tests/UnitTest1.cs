@@ -1,10 +1,10 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace HHSharp
+namespace HHSharp.Tests
 {
     [TestClass]
-    public class Tests
+    public class UnitTest1
     {
         private bool CloseEnough(double a, double b, double within = 0.00001)
         {
