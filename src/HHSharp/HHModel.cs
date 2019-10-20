@@ -6,7 +6,7 @@ namespace HHSharp
     {
         public double alpha, beta, activation;
         public double inactivation { get { return 1 - activation; } }
-        public override string ToString() { return $"alpha={alpha}, beta={beta}, activity={activation}"; }
+        public override string ToString() { return $"alpha={alpha}, beta={beta}, activation={activation}"; }
         public abstract void UpdateTimeConstants(double Vm);
 
         public void SetInfiniteState()
