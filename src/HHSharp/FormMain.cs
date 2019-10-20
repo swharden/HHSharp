@@ -16,20 +16,9 @@ namespace HHSharp
         public FormMain()
         {
             InitializeComponent();
-
-            formsPlot1.plt.Title("Membrane Potential (Vm)");
-            formsPlot1.plt.YLabel("Potential (mV)");
             formsPlot1.plt.mouseTracker.lowQualityWhileInteracting = false;
-
-            formsPlot3.plt.Title("Stimulus");
-            formsPlot3.plt.YLabel("Current (µA/cm²)");
             formsPlot3.plt.mouseTracker.lowQualityWhileInteracting = false;
-
-            formsPlot2.plt.Title("Active Conductance Gate States");
-            formsPlot2.plt.YLabel("Activation");
-            formsPlot2.plt.XLabel("Simulation Time (milliseconds)");
             formsPlot2.plt.mouseTracker.lowQualityWhileInteracting = false;
-
             RunSimulation();
         }
 
@@ -56,7 +45,7 @@ namespace HHSharp
             }
             else
             {
-                throw new Exception("unknown stimulus waveform");
+                throw new NotImplementedException();
             }
 
             return stimulus;
@@ -76,6 +65,10 @@ namespace HHSharp
             double[] stateH = new double[pointCount];
             double[] stateM = new double[pointCount];
             double[] stateN = new double[pointCount];
+
+            double[] INa = new double[pointCount];
+            double[] IK = new double[pointCount];
+            double[] IKleak = new double[pointCount];
 
             double[] stimulus = GenerateStimulusWaveform(pointCount);
 
@@ -97,6 +90,9 @@ namespace HHSharp
                 stateH[i] = hh.h.activation;
                 stateM[i] = hh.m.activation;
                 stateN[i] = hh.n.activation;
+                INa[i] = hh.INa;
+                IK[i] = hh.IK;
+                IKleak[i] = hh.IKleak;
             }
 
             double elapsedSec = (double)stopwatch.ElapsedTicks / Stopwatch.Frequency;
@@ -104,40 +100,47 @@ namespace HHSharp
                 elapsedSec * 1000.0, 1 / elapsedSec, pointCount);
             rtbStatus.Text = message;
 
+            formsPlot1.plt.Title("Membrane Potential (Vm)");
+            formsPlot1.plt.YLabel("Potential (mV)");
             formsPlot1.plt.Clear();
             formsPlot1.plt.PlotSignal(voltage, sampleRate, yOffset: -70, color: Color.Blue);
             formsPlot1.plt.AxisAuto();
             formsPlot1.Render();
 
+            formsPlot3.plt.Title("Stimulus");
+            formsPlot3.plt.YLabel("Current (µA/cm²)");
             formsPlot3.plt.Clear();
             formsPlot3.plt.PlotSignal(stimulus, sampleRate, color: Color.Red);
             formsPlot3.plt.AxisAuto();
             formsPlot3.Render();
 
             formsPlot2.plt.Clear();
-            formsPlot2.plt.PlotSignal(stateH, sampleRate, label: "h");
-            formsPlot2.plt.PlotSignal(stateM, sampleRate, label: "m");
-            formsPlot2.plt.PlotSignal(stateN, sampleRate, label: "m");
+            if (rbDisplayActivity.Checked == true)
+            {
+                formsPlot2.plt.Title("Voltage-Dependent Gate Activation");
+                formsPlot2.plt.YLabel("Activation (frac)");
+                formsPlot2.plt.PlotSignal(stateH, sampleRate, label: "h");
+                formsPlot2.plt.PlotSignal(stateM, sampleRate, label: "m");
+                formsPlot2.plt.PlotSignal(stateN, sampleRate, label: "m");
+            }
+            else if (rbDisplayCurrent.Checked == true)
+            {
+                formsPlot2.plt.Title("Channel Current");
+                formsPlot2.plt.YLabel("Current (µA/cm²)");
+                formsPlot2.plt.PlotSignal(INa, sampleRate, label: "VGSC");
+                formsPlot2.plt.PlotSignal(IK, sampleRate, label: "VGKC");
+                formsPlot2.plt.PlotSignal(IKleak, sampleRate, label: "Kleak");
+            }
+            else
+            {
+                throw new NotImplementedException();
+            }
+            formsPlot2.plt.XLabel("Simulation Time (milliseconds)");
             formsPlot2.plt.Legend();
             formsPlot2.plt.AxisAuto();
             formsPlot2.Render();
 
         }
-
-        private void btnRun_Click(object sender, EventArgs e) { RunSimulation(); }
-        private void nudStimCurrent_ValueChanged(object sender, EventArgs e) { RunSimulation(); }
-        private void rbStimConstant_CheckedChanged(object sender, EventArgs e) { RunSimulation(); }
-        private void rbStimSquare_CheckedChanged(object sender, EventArgs e) { RunSimulation(); }
-        private void rbStimRamp_CheckedChanged(object sender, EventArgs e) { RunSimulation(); }
-        private void nudCm_ValueChanged(object sender, EventArgs e) { RunSimulation(); }
-        private void nudResolutionMs_ValueChanged(object sender, EventArgs e) { RunSimulation(); }
-        private void nudDurationMs_ValueChanged(object sender, EventArgs e) { RunSimulation(); }
-        private void nudGKLeak_ValueChanged(object sender, EventArgs e) { RunSimulation(); }
-        private void nudGK_ValueChanged(object sender, EventArgs e) { RunSimulation(); }
-        private void nudGNa_ValueChanged(object sender, EventArgs e) { RunSimulation(); }
-        private void nudEKLeak_ValueChanged(object sender, EventArgs e) { RunSimulation(); }
-        private void nudEK_ValueChanged(object sender, EventArgs e) { RunSimulation(); }
-        private void nudENa_ValueChanged(object sender, EventArgs e) { RunSimulation(); }
 
         private void formsPlot1_MouseClicked(object sender, MouseEventArgs e)
         {
@@ -175,7 +178,23 @@ namespace HHSharp
 
         private void lblUrl_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("https://github.com/swharden/HHSharp");
+            Process.Start("https://github.com/swharden/HHSharp");
         }
+
+        private void nudStimCurrent_ValueChanged(object sender, EventArgs e) { RunSimulation(); }
+        private void rbStimConstant_CheckedChanged(object sender, EventArgs e) { RunSimulation(); }
+        private void rbStimSquare_CheckedChanged(object sender, EventArgs e) { RunSimulation(); }
+        private void rbStimRamp_CheckedChanged(object sender, EventArgs e) { RunSimulation(); }
+        private void nudCm_ValueChanged(object sender, EventArgs e) { RunSimulation(); }
+        private void nudResolutionMs_ValueChanged(object sender, EventArgs e) { RunSimulation(); }
+        private void nudDurationMs_ValueChanged(object sender, EventArgs e) { RunSimulation(); }
+        private void nudGKLeak_ValueChanged(object sender, EventArgs e) { RunSimulation(); }
+        private void nudGK_ValueChanged(object sender, EventArgs e) { RunSimulation(); }
+        private void nudGNa_ValueChanged(object sender, EventArgs e) { RunSimulation(); }
+        private void nudEKLeak_ValueChanged(object sender, EventArgs e) { RunSimulation(); }
+        private void nudEK_ValueChanged(object sender, EventArgs e) { RunSimulation(); }
+        private void nudENa_ValueChanged(object sender, EventArgs e) { RunSimulation(); }
+        private void rbDisplayActivity_CheckedChanged(object sender, EventArgs e) { RunSimulation(); }
+        private void rbDisplayCurrent_CheckedChanged(object sender, EventArgs e) { RunSimulation(); }
     }
 }

@@ -58,9 +58,12 @@
             this.label11 = new System.Windows.Forms.Label();
             this.nudStimCurrent = new System.Windows.Forms.NumericUpDown();
             this.formsPlot2 = new ScottPlot.FormsPlot();
-            this.formsPlot3 = new ScottPlot.FormsPlot();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.rtbStatus = new System.Windows.Forms.RichTextBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.formsPlot3 = new ScottPlot.FormsPlot();
+            this.rbDisplayActivity = new System.Windows.Forms.RadioButton();
+            this.rbDisplayCurrent = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.nudDurationMs)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCm)).BeginInit();
@@ -75,6 +78,7 @@
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudStimCurrent)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // formsPlot1
@@ -507,15 +511,6 @@
             this.formsPlot2.TabIndex = 12;
             this.formsPlot2.MouseClicked += new System.Windows.Forms.MouseEventHandler(this.formsPlot2_MouseClicked);
             // 
-            // formsPlot3
-            // 
-            this.formsPlot3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.formsPlot3.Location = new System.Drawing.Point(3, 206);
-            this.formsPlot3.Name = "formsPlot3";
-            this.formsPlot3.Size = new System.Drawing.Size(863, 197);
-            this.formsPlot3.TabIndex = 13;
-            this.formsPlot3.MouseClicked += new System.Windows.Forms.MouseEventHandler(this.formsPlot3_MouseClicked);
-            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -540,17 +535,62 @@
             this.rtbStatus.BackColor = System.Drawing.SystemColors.Control;
             this.rtbStatus.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.rtbStatus.Enabled = false;
-            this.rtbStatus.Location = new System.Drawing.Point(12, 467);
+            this.rtbStatus.Location = new System.Drawing.Point(12, 515);
             this.rtbStatus.Name = "rtbStatus";
-            this.rtbStatus.Size = new System.Drawing.Size(203, 96);
+            this.rtbStatus.Size = new System.Drawing.Size(203, 75);
             this.rtbStatus.TabIndex = 15;
             this.rtbStatus.Text = "status";
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.rbDisplayCurrent);
+            this.groupBox5.Controls.Add(this.rbDisplayActivity);
+            this.groupBox5.Location = new System.Drawing.Point(12, 467);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(203, 42);
+            this.groupBox5.TabIndex = 9;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Display";
+            // 
+            // formsPlot3
+            // 
+            this.formsPlot3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.formsPlot3.Location = new System.Drawing.Point(3, 206);
+            this.formsPlot3.Name = "formsPlot3";
+            this.formsPlot3.Size = new System.Drawing.Size(863, 197);
+            this.formsPlot3.TabIndex = 13;
+            this.formsPlot3.MouseClicked += new System.Windows.Forms.MouseEventHandler(this.formsPlot3_MouseClicked);
+            // 
+            // rbDisplayActivity
+            // 
+            this.rbDisplayActivity.AutoSize = true;
+            this.rbDisplayActivity.Checked = true;
+            this.rbDisplayActivity.Location = new System.Drawing.Point(6, 19);
+            this.rbDisplayActivity.Name = "rbDisplayActivity";
+            this.rbDisplayActivity.Size = new System.Drawing.Size(85, 17);
+            this.rbDisplayActivity.TabIndex = 6;
+            this.rbDisplayActivity.TabStop = true;
+            this.rbDisplayActivity.Text = "Gate Activity";
+            this.rbDisplayActivity.UseVisualStyleBackColor = true;
+            this.rbDisplayActivity.CheckedChanged += new System.EventHandler(this.rbDisplayActivity_CheckedChanged);
+            // 
+            // rbDisplayCurrent
+            // 
+            this.rbDisplayCurrent.AutoSize = true;
+            this.rbDisplayCurrent.Location = new System.Drawing.Point(94, 19);
+            this.rbDisplayCurrent.Name = "rbDisplayCurrent";
+            this.rbDisplayCurrent.Size = new System.Drawing.Size(106, 17);
+            this.rbDisplayCurrent.TabIndex = 7;
+            this.rbDisplayCurrent.Text = "Channel Currents";
+            this.rbDisplayCurrent.UseVisualStyleBackColor = true;
+            this.rbDisplayCurrent.CheckedChanged += new System.EventHandler(this.rbDisplayCurrent_CheckedChanged);
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1102, 633);
+            this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.rtbStatus);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.groupBox4);
@@ -580,6 +620,8 @@
             this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudStimCurrent)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -617,9 +659,12 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.NumericUpDown nudStimCurrent;
         private ScottPlot.FormsPlot formsPlot2;
-        private ScottPlot.FormsPlot formsPlot3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.RichTextBox rtbStatus;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private ScottPlot.FormsPlot formsPlot3;
+        private System.Windows.Forms.RadioButton rbDisplayCurrent;
+        private System.Windows.Forms.RadioButton rbDisplayActivity;
     }
 }
 
