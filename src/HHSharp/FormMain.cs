@@ -92,11 +92,11 @@ namespace HHSharp
 
             for (int i = 0; i < pointCount; i++)
             {
-                hh.Iterate(stimulus[i], stepSizeMsec);
+                hh.StepForward(stimulus[i], stepSizeMsec);
                 voltage[i] = hh.Vm;
-                stateH[i] = hh.h.activity;
-                stateM[i] = hh.m.activity;
-                stateN[i] = hh.n.activity;
+                stateH[i] = hh.h.activation;
+                stateM[i] = hh.m.activation;
+                stateN[i] = hh.n.activation;
             }
 
             double elapsedSec = (double)stopwatch.ElapsedTicks / Stopwatch.Frequency;

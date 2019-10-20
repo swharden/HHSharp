@@ -4,12 +4,21 @@ namespace HHSharp
 {
     public abstract class VoltageDependentGate
     {
-        public double alpha, beta, activity;
-        public override string ToString() { return $"alpha={alpha}, beta={beta}, activity={activity}"; }
-        public void StepForward(double ms) { activity += ms * ((alpha * (1 - activity)) - (beta * activity)); }
-        public void SetInfiniteState() { activity = alpha / (alpha + beta); }
+        public double alpha, beta, activation;
+        public double inactivation { get { return 1 - activation; } }
+        public override string ToString() { return $"alpha={alpha}, beta={beta}, activity={activation}"; }
         public abstract void UpdateTimeConstants(double Vm);
 
+        public void SetInfiniteState()
+        {
+            activation = alpha / (alpha + beta);
+        }
+
+        public void StepForward(double stepSizeMs)
+        {
+            double activationChangePerMs = alpha * inactivation - beta * activation;
+            activation += activationChangePerMs * stepSizeMs;
+        }
     }
 
     public class MGate : VoltageDependentGate // voltage-gated sodium channel activation gate
@@ -67,8 +76,8 @@ namespace HHSharp
 
         public void UpdateCellVoltage(double stimulusCurrent, double deltaTms)
         {
-            double INa = Math.Pow(m.activity, 3) * gNa * h.activity * (Vm - ENa);
-            double IK = Math.Pow(n.activity, 4) * gK * (Vm - EK);
+            double INa = Math.Pow(m.activation, 3) * gNa * h.activation * (Vm - ENa);
+            double IK = Math.Pow(n.activation, 4) * gK * (Vm - EK);
             double IKleak = gKleak * (Vm - EKleak);
             double Isum = stimulusCurrent - INa - IK - IKleak;
             Vm += deltaTms * Isum / Cm;
@@ -81,11 +90,11 @@ namespace HHSharp
             n.StepForward(deltaTms);
         }
 
-        public void Iterate(double stimulusCurrent = 0, double deltaTms = 0.05)
+        public void StepForward(double stimulusCurrent, double stepSizeMs)
         {
             UpdateGateTimeConstants(Vm);
-            UpdateCellVoltage(stimulusCurrent, deltaTms);
-            UpdateGateStates(deltaTms);
+            UpdateCellVoltage(stimulusCurrent, stepSizeMs);
+            UpdateGateStates(stepSizeMs);
         }
     }
 }
