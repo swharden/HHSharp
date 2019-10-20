@@ -1,7 +1,7 @@
 # HHSharp
 **HHSharp is an interactive Hodgkin-Huxley neuron simulator written in C#.** Analytical routines were designed to be easy to understand, so this program can be used as a learning tool for anyone interested in learning more about Hodgkin-Huxley simulations. [pyHH](https://github.com/swharden/pyHH) is a similar project for Python.
 
-![](src/HHSharp/screenshot.png)
+![](dev/screenshot.png)
 
 HHSharp uses a simulation model which calculates channel conductances and membrane potential at discrete time points eliminating the need for a differential equation solver. The core model simulation code ([HHModel.cs](src/HHSharp/HHModel.cs)) was written to be easy to understand and is less than 100 lines of code. [ScottPlot](https://github.com/swharden/ScottPlot) is used interactively display simulation data.
 
