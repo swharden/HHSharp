@@ -1,7 +1,7 @@
 # HHSharp
 
-[![](https://img.shields.io/azure-devops/build/swharden/swharden/3?label=Build&logo=azure%20pipelines)](https://dev.azure.com/swharden/swharden/_build/latest?definitionId=1&branchName=master)
-[![](https://img.shields.io/azure-devops/tests/swharden/swharden/3?label=Tests&logo=azure%20pipelines)](https://dev.azure.com/swharden/swharden/_build/latest?definitionId=1&branchName=master)
+[![](https://img.shields.io/azure-devops/build/swharden/swharden/3?label=Build&logo=azure%20pipelines)](https://dev.azure.com/swharden/swharden/_build/latest?definitionId=3&branchName=master)
+[![](https://img.shields.io/azure-devops/tests/swharden/swharden/3?label=Tests&logo=azure%20pipelines)](https://dev.azure.com/swharden/swharden/_build/latest?definitionId=3&branchName=master)
 
 **HHSharp is an interactive Hodgkin-Huxley neuron simulator written in C#.** Analytical routines were designed to be easy to understand, so this program can be used as a learning tool for anyone interested in learning more about Hodgkin-Huxley simulations. [pyHH](https://github.com/swharden/pyHH) is a similar project for Python.
 
