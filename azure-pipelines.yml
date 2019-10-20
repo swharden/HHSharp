@@ -21,21 +21,13 @@ steps:
   inputs:
     restoreSolution: '$(solution)'
 
-# required for NUnit
-- task: VisualStudioTestPlatformInstaller@1
-  inputs:
-    packageFeedSelector: 'nugetOrg'
-    versionSelector: 'latestStable'
-    
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
-# run NUnit tests
-- task: DotNetCoreCLI@2
+- task: VSTest@2
   inputs:
-    command: test
-    projects: 'src/*/*.csproj'
-    arguments: '--configuration $(buildConfiguration)'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
