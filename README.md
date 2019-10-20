@@ -7,7 +7,7 @@
 
 ![](dev/screenshot.png)
 
-HHSharp uses a simulation model which calculates channel conductances and membrane potential at discrete time points eliminating the need for a differential equation solver. [ScottPlot](https://github.com/swharden/ScottPlot) is used interactively display simulation results. [pyHH](https://github.com/swharden/pyHH) is a similar project for Python.
+HHSharp uses a simulation model which calculates channel conductances and membrane potential at discrete time points eliminating the need for a differential equation solver. [ScottPlot](https://github.com/swharden/ScottPlot) is used to interactively display simulation results. [pyHH](https://github.com/swharden/pyHH) is a similar project for Python.
 
 ### Download
 * Click-to-run EXE: **[HHSharp.zip](/download/HHSharp.zip)**
