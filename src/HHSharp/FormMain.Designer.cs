@@ -84,7 +84,7 @@
             this.formsPlot1.Name = "formsPlot1";
             this.formsPlot1.Size = new System.Drawing.Size(863, 197);
             this.formsPlot1.TabIndex = 0;
-            this.formsPlot1.MouseClicked += new System.Windows.Forms.MouseEventHandler(this.formsPlot2_MouseClicked);
+            this.formsPlot1.MouseClicked += new System.Windows.Forms.MouseEventHandler(this.formsPlot1_MouseClicked);
             // 
             // nudDurationMs
             // 
