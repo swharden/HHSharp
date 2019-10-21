@@ -1,12 +1,15 @@
-﻿using System;
+// Hodgkin-Huxley neuron simulator by Scott W Harden
+// Equations reference Hodgkin & Huxley (1952) https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1392413/
+
+using System;
 
 namespace HHSharp
 {
     public abstract class VoltageGate
     {
-        public double alpha; // rate of opening (fraction / msec)
-        public double beta; // rate of closing (fraction / msec)
-        public double activation; // activation fraction (0-1)
+        public double alpha; // rate of opening (units = fraction / millisecond)
+        public double beta; // rate of closing (units = fraction / millisecond)
+        public double activation; // activation fraction (range 0-1)
         public double activationChangePerMs { get { return alpha * (1 - activation) - beta * activation; } }
         public abstract void UpdateTimeConstants(double Vm);
         public override string ToString() { return $"alpha={alpha}, beta={beta}, activation={activation}"; }
@@ -43,9 +46,9 @@ namespace HHSharp
 
     public class HHModel
     {
-        public double ENa = 115, EK = -12, EKleak = 10.6; // Hodgkin & Huxley (1952) Table 3
-        public double gNa = 120, gK = 36, gKleak = 0.3; // Hodgkin & Huxley (1952) Table 3
-        public double Cm = 1; // Hodgkin & Huxley (1952) Table 3
+        public double ENa = 115, EK = -12, EKleak = 10.6; // Hodgkin & Huxley (1952) Table 3 (unlts = mV)
+        public double gNa = 120, gK = 36, gKleak = 0.3; // Hodgkin & Huxley (1952) Table 3 (unlts = µA/cm²)
+        public double Cm = 1; // Hodgkin & Huxley (1952) Table 3 (unlts = µF/cm²)
 
         public VoltageGate m = new VgscActivationGate();
         public VoltageGate h = new VgscInactivationGate();
@@ -72,7 +75,8 @@ namespace HHSharp
             n.UpdateTimeConstants(Vm);
         }
 
-        public double INa, IK, IKleak, Isum, Vm;
+        public double INa, IK, IKleak, Isum; // (unlts = µA/cm²)
+        public double Vm; // (unlts = mV)
         private void UpdateCurrentsAndVoltage(double stimulusCurrent, double deltaTms) // Hodgkin & Huxley (1952) equation 33
         {
             INa = Math.Pow(m.activation, 3) * gNa * h.activation * (Vm - ENa);
