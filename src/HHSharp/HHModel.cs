@@ -47,7 +47,7 @@ namespace HHSharp
     public class HHModel
     {
         public double ENa = 115, EK = -12, EKleak = 10.6; // Hodgkin & Huxley (1952) Table 3 (unlts = mV)
-        public double gNa = 120, gK = 36, gKleak = 0.3; // Hodgkin & Huxley (1952) Table 3 (unlts = µA/cm²)
+        public double gNa = 120, gK = 36, gKleak = 0.3; // Hodgkin & Huxley (1952) Table 3 (unlts = mS/cm²)
         public double Cm = 1; // Hodgkin & Huxley (1952) Table 3 (unlts = µF/cm²)
 
         public VoltageGate m = new VgscActivationGate();
