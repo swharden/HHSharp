@@ -142,30 +142,6 @@ namespace HHSharp
 
         }
 
-        private void formsPlot1_MouseClicked(object sender, MouseEventArgs e)
-        {
-            formsPlot2.plt.MatchAxis(formsPlot1.plt, horizontal: true, vertical: false);
-            formsPlot3.plt.MatchAxis(formsPlot1.plt, horizontal: true, vertical: false);
-            formsPlot2.Render();
-            formsPlot3.Render();
-        }
-
-        private void formsPlot2_MouseClicked(object sender, MouseEventArgs e)
-        {
-            formsPlot1.plt.MatchAxis(formsPlot2.plt, horizontal: true, vertical: false);
-            formsPlot3.plt.MatchAxis(formsPlot2.plt, horizontal: true, vertical: false);
-            formsPlot1.Render();
-            formsPlot3.Render();
-        }
-
-        private void formsPlot3_MouseClicked(object sender, MouseEventArgs e)
-        {
-            formsPlot1.plt.MatchAxis(formsPlot3.plt, horizontal: true, vertical: false);
-            formsPlot2.plt.MatchAxis(formsPlot3.plt, horizontal: true, vertical: false);
-            formsPlot1.Render();
-            formsPlot2.Render();
-        }
-
         private void label6_MouseEnter(object sender, EventArgs e)
         {
             lblUrl.Font = new Font(lblUrl.Font.Name, lblUrl.Font.SizeInPoints, FontStyle.Underline);
@@ -196,5 +172,38 @@ namespace HHSharp
         private void nudENa_ValueChanged(object sender, EventArgs e) { RunSimulation(); }
         private void rbDisplayActivity_CheckedChanged(object sender, EventArgs e) { RunSimulation(); }
         private void rbDisplayCurrent_CheckedChanged(object sender, EventArgs e) { RunSimulation(); }
+
+        private void formsPlot1_AxesChanged(object sender, EventArgs e)
+        {
+            if (Control.MouseButtons == MouseButtons.None)
+            {
+                formsPlot2.plt.MatchAxis(formsPlot1.plt, horizontal: true, vertical: false);
+                formsPlot3.plt.MatchAxis(formsPlot1.plt, horizontal: true, vertical: false);
+                formsPlot2.Render(true);
+                formsPlot3.Render(true);
+            }
+        }
+
+        private void formsPlot3_AxesChanged(object sender, EventArgs e)
+        {
+            if (Control.MouseButtons == MouseButtons.None)
+            {
+                formsPlot1.plt.MatchAxis(formsPlot3.plt, horizontal: true, vertical: false);
+                formsPlot2.plt.MatchAxis(formsPlot3.plt, horizontal: true, vertical: false);
+                formsPlot1.Render(true);
+                formsPlot2.Render(true);
+            }
+        }
+
+        private void formsPlot2_AxesChanged(object sender, EventArgs e)
+        {
+            if (Control.MouseButtons == MouseButtons.None)
+            {
+                formsPlot1.plt.MatchAxis(formsPlot2.plt, horizontal: true, vertical: false);
+                formsPlot3.plt.MatchAxis(formsPlot2.plt, horizontal: true, vertical: false);
+                formsPlot1.Render(true);
+                formsPlot3.Render(true);
+            }
+        }
     }
 }

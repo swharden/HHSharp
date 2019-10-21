@@ -59,11 +59,11 @@
             this.nudStimCurrent = new System.Windows.Forms.NumericUpDown();
             this.formsPlot2 = new ScottPlot.FormsPlot();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.formsPlot3 = new ScottPlot.FormsPlot();
             this.rtbStatus = new System.Windows.Forms.RichTextBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.formsPlot3 = new ScottPlot.FormsPlot();
-            this.rbDisplayActivity = new System.Windows.Forms.RadioButton();
             this.rbDisplayCurrent = new System.Windows.Forms.RadioButton();
+            this.rbDisplayActivity = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.nudDurationMs)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCm)).BeginInit();
@@ -88,7 +88,7 @@
             this.formsPlot1.Name = "formsPlot1";
             this.formsPlot1.Size = new System.Drawing.Size(863, 197);
             this.formsPlot1.TabIndex = 0;
-            this.formsPlot1.MouseClicked += new System.Windows.Forms.MouseEventHandler(this.formsPlot1_MouseClicked);
+            this.formsPlot1.AxesChanged += new System.EventHandler(this.formsPlot1_AxesChanged);
             // 
             // nudDurationMs
             // 
@@ -509,7 +509,7 @@
             this.formsPlot2.Name = "formsPlot2";
             this.formsPlot2.Size = new System.Drawing.Size(863, 197);
             this.formsPlot2.TabIndex = 12;
-            this.formsPlot2.MouseClicked += new System.Windows.Forms.MouseEventHandler(this.formsPlot2_MouseClicked);
+            this.formsPlot2.AxesChanged += new System.EventHandler(this.formsPlot2_AxesChanged);
             // 
             // tableLayoutPanel1
             // 
@@ -529,6 +529,15 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(869, 609);
             this.tableLayoutPanel1.TabIndex = 14;
+            // 
+            // formsPlot3
+            // 
+            this.formsPlot3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.formsPlot3.Location = new System.Drawing.Point(3, 206);
+            this.formsPlot3.Name = "formsPlot3";
+            this.formsPlot3.Size = new System.Drawing.Size(863, 197);
+            this.formsPlot3.TabIndex = 13;
+            this.formsPlot3.AxesChanged += new System.EventHandler(this.formsPlot3_AxesChanged);
             // 
             // rtbStatus
             // 
@@ -552,14 +561,16 @@
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Display";
             // 
-            // formsPlot3
+            // rbDisplayCurrent
             // 
-            this.formsPlot3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.formsPlot3.Location = new System.Drawing.Point(3, 206);
-            this.formsPlot3.Name = "formsPlot3";
-            this.formsPlot3.Size = new System.Drawing.Size(863, 197);
-            this.formsPlot3.TabIndex = 13;
-            this.formsPlot3.MouseClicked += new System.Windows.Forms.MouseEventHandler(this.formsPlot3_MouseClicked);
+            this.rbDisplayCurrent.AutoSize = true;
+            this.rbDisplayCurrent.Location = new System.Drawing.Point(94, 19);
+            this.rbDisplayCurrent.Name = "rbDisplayCurrent";
+            this.rbDisplayCurrent.Size = new System.Drawing.Size(106, 17);
+            this.rbDisplayCurrent.TabIndex = 7;
+            this.rbDisplayCurrent.Text = "Channel Currents";
+            this.rbDisplayCurrent.UseVisualStyleBackColor = true;
+            this.rbDisplayCurrent.CheckedChanged += new System.EventHandler(this.rbDisplayCurrent_CheckedChanged);
             // 
             // rbDisplayActivity
             // 
@@ -573,17 +584,6 @@
             this.rbDisplayActivity.Text = "Gate Activity";
             this.rbDisplayActivity.UseVisualStyleBackColor = true;
             this.rbDisplayActivity.CheckedChanged += new System.EventHandler(this.rbDisplayActivity_CheckedChanged);
-            // 
-            // rbDisplayCurrent
-            // 
-            this.rbDisplayCurrent.AutoSize = true;
-            this.rbDisplayCurrent.Location = new System.Drawing.Point(94, 19);
-            this.rbDisplayCurrent.Name = "rbDisplayCurrent";
-            this.rbDisplayCurrent.Size = new System.Drawing.Size(106, 17);
-            this.rbDisplayCurrent.TabIndex = 7;
-            this.rbDisplayCurrent.Text = "Channel Currents";
-            this.rbDisplayCurrent.UseVisualStyleBackColor = true;
-            this.rbDisplayCurrent.CheckedChanged += new System.EventHandler(this.rbDisplayCurrent_CheckedChanged);
             // 
             // FormMain
             // 
