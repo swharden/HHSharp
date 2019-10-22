@@ -3,11 +3,11 @@
 [![](https://img.shields.io/azure-devops/build/swharden/swharden/3?label=Build&logo=azure%20pipelines)](https://dev.azure.com/swharden/swharden/_build/latest?definitionId=3&branchName=master)
 [![](https://img.shields.io/azure-devops/tests/swharden/swharden/3?label=Tests&logo=azure%20pipelines)](https://dev.azure.com/swharden/swharden/_build/latest?definitionId=3&branchName=master)
 
-**HHSharp is an interactive Hodgkin-Huxley neuron simulator written in C#**. The model and simulation code ([HHModel.cs](src/HHSharp/HHModel.cs)) contains fewer than 100 lines and was written using an object-oriented coding style. Code comments even cite specific equations from Hodgkin and Huxley's 1952 manuscript.
+**HHSharp is an interactive Hodgkin-Huxley neuron simulator**. The neuron model and simulation code ([HHModel.cs](src/HHSharp/HHModel.cs)) contains fewer than 100 lines and was written in C# using an object-oriented coding style. Code comments even cite specific equations from Hodgkin and Huxley's 1952 manuscript.
 
 ![](dev/screenshot.png)
 
-HHSharp uses a simulation model which calculates channel conductances and membrane potential at discrete time points eliminating the need for a differential equation solver. [ScottPlot](https://github.com/swharden/ScottPlot) is used to interactively display simulation results. [pyHH](https://github.com/swharden/pyHH) is a similar project for Python.
+HHSharp uses a simulation model which calculates channel conductances and membrane potential at discrete time points eliminating the need for a differential equation solver and allowing the model cell to be challenged with complex stimuluation waveforms. [ScottPlot](https://github.com/swharden/ScottPlot) is used to interactively display simulation results. [pyHH](https://github.com/swharden/pyHH) is a similar project for Python.
 
 ### Download
 * Click-to-run EXE: **[HHSharp.zip](/download/HHSharp.zip)**
