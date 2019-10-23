@@ -46,11 +46,11 @@
             this.cbSimulationRun = new System.Windows.Forms.CheckBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.cbEpsc = new System.Windows.Forms.CheckBox();
             this.nudEpscAmp = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.nudEpscFreq = new System.Windows.Forms.NumericUpDown();
-            this.cbEpsc = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.nudCurrentConstant)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudCurrentPulse)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPulseLengthMs)).BeginInit();
@@ -258,7 +258,7 @@
             // timer1
             // 
             this.timer1.Enabled = true;
-            this.timer1.Interval = 1;
+            this.timer1.Interval = 10;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // groupBox4
@@ -274,6 +274,19 @@
             this.groupBox4.TabIndex = 10;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "sEPSCs";
+            // 
+            // cbEpsc
+            // 
+            this.cbEpsc.AutoSize = true;
+            this.cbEpsc.Checked = true;
+            this.cbEpsc.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbEpsc.Location = new System.Drawing.Point(6, 71);
+            this.cbEpsc.Name = "cbEpsc";
+            this.cbEpsc.Size = new System.Drawing.Size(59, 17);
+            this.cbEpsc.TabIndex = 7;
+            this.cbEpsc.Text = "Enable";
+            this.cbEpsc.UseVisualStyleBackColor = true;
+            this.cbEpsc.CheckedChanged += new System.EventHandler(this.cbEpsc_CheckedChanged);
             // 
             // nudEpscAmp
             // 
@@ -292,10 +305,11 @@
             this.nudEpscAmp.Size = new System.Drawing.Size(59, 20);
             this.nudEpscAmp.TabIndex = 4;
             this.nudEpscAmp.Value = new decimal(new int[] {
-            50,
+            3,
             0,
             0,
             0});
+            this.nudEpscAmp.ValueChanged += new System.EventHandler(this.nudEpscAmp_ValueChanged);
             // 
             // label5
             // 
@@ -317,11 +331,6 @@
             // 
             // nudEpscFreq
             // 
-            this.nudEpscFreq.Increment = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
             this.nudEpscFreq.Location = new System.Drawing.Point(6, 45);
             this.nudEpscFreq.Maximum = new decimal(new int[] {
             10000,
@@ -332,20 +341,11 @@
             this.nudEpscFreq.Size = new System.Drawing.Size(59, 20);
             this.nudEpscFreq.TabIndex = 5;
             this.nudEpscFreq.Value = new decimal(new int[] {
-            10,
+            50,
             0,
             0,
             0});
-            // 
-            // cbEpsc
-            // 
-            this.cbEpsc.AutoSize = true;
-            this.cbEpsc.Location = new System.Drawing.Point(6, 71);
-            this.cbEpsc.Name = "cbEpsc";
-            this.cbEpsc.Size = new System.Drawing.Size(59, 17);
-            this.cbEpsc.TabIndex = 7;
-            this.cbEpsc.Text = "Enable";
-            this.cbEpsc.UseVisualStyleBackColor = true;
+            this.nudEpscFreq.ValueChanged += new System.EventHandler(this.nudEpscFreq_ValueChanged);
             // 
             // FormLive
             // 
