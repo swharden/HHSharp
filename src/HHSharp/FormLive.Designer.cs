@@ -40,11 +40,11 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.lblTime = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.cbSimulationSlow = new System.Windows.Forms.CheckBox();
             this.cbSimulationRun = new System.Windows.Forms.CheckBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.lblTime = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nudCurrentConstant)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudCurrentPulse)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPulseLengthMs)).BeginInit();
@@ -209,6 +209,16 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Simulation";
             // 
+            // lblTime
+            // 
+            this.lblTime.AutoSize = true;
+            this.lblTime.Enabled = false;
+            this.lblTime.Location = new System.Drawing.Point(45, 65);
+            this.lblTime.Name = "lblTime";
+            this.lblTime.Size = new System.Drawing.Size(60, 13);
+            this.lblTime.TabIndex = 8;
+            this.lblTime.Text = "12.345 sec";
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -247,16 +257,6 @@
             this.timer1.Interval = 1;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // lblTime
-            // 
-            this.lblTime.AutoSize = true;
-            this.lblTime.Enabled = false;
-            this.lblTime.Location = new System.Drawing.Point(45, 65);
-            this.lblTime.Name = "lblTime";
-            this.lblTime.Size = new System.Drawing.Size(60, 13);
-            this.lblTime.TabIndex = 8;
-            this.lblTime.Text = "12.345 sec";
-            // 
             // FormLive
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -267,7 +267,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.formsPlot1);
             this.Name = "FormLive";
-            this.Text = "FormLive";
+            this.Text = "HHSharp: Live Neuron Model";
             this.Load += new System.EventHandler(this.FormLive_Load);
             ((System.ComponentModel.ISupportInitialize)(this.nudCurrentConstant)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudCurrentPulse)).EndInit();
