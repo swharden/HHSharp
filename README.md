@@ -13,7 +13,7 @@ HHSharp uses a simulation model which calculates channel conductances and membra
 
 ### Download
 * Click-to-run EXE: **[HHSharp.zip](/download/HHSharp.zip)**
-* Source code is in: **[src/](/download/)**
+* Source code is in: **[src/](/src/)**
 
 ## Simulating the Hodgkin–Huxley Model in Software
 
