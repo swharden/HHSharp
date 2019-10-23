@@ -7,7 +7,7 @@
 
 ![](dev/screenshot.png)
 
-HHSharp uses a simulation model which calculates channel conductances and membrane potential at discrete time points eliminating the need for a differential equation solver and allowing the model cell to be challenged with complex stimuluation waveforms. [ScottPlot](https://github.com/swharden/ScottPlot) is used to interactively display simulation results. [pyHH](https://github.com/swharden/pyHH) is a similar project for Python.
+HHSharp uses a simulation model which calculates channel conductances and membrane potential at discrete time points eliminating the need for a differential equation solver and allowing the model cell to be challenged with complex stimuluation waveforms. [ScottPlot](https://github.com/swharden/ScottPlot) is used to interactively display simulation results.
 
 ![](dev/screenshot-realtime.gif)
 
@@ -42,6 +42,7 @@ After the 3 gates are modeled in software, we can determine the conductance of v
 With this new voltage in-hand we can start over and calculate the voltage-gated channel gate states which are slightly different now because voltage has changed. By iterating this process (typically in 0.01 ms steps) we can simulate the membrane voltage as time passes ([HHModel.cs#L85-L92](https://github.com/swharden/HHSharp/blob/7967a0c935bf7734f95562b5fe6263b724ab6582/src/HHSharp/HHModel.cs#L85-L92)).
 
 ### Additional Resources
+* [pyHH](https://github.com/swharden/pyHH) is a similar project for Python
 * [Hodgkin and Huxley, 1952](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1392413/pdf/jphysiol01442-0106.pdf) (the original manuscript)
 * [The Hodgkin-Huxley Mode](http://www.genesis-sim.org/GENESIS/iBoG/iBoGpdf/chapt4.pdf) (The GENESIS Simulator, Chapter 4)
 * Wikipedia: [Hodgkin–Huxley model](https://en.wikipedia.org/wiki/Hodgkin%E2%80%93Huxley_model)
