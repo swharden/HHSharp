@@ -21,11 +21,12 @@ namespace HHSharp
             InitializeComponent();
             sim = new Simulator(initialCurrent: (double)nudCurrentConstant.Value);
             voltage = sim.voltage.ToArray();
-            formsPlot1.plt.PlotSignal(voltage, sim.sampleRate, color: Color.Blue);
+            formsPlot1.plt.PlotSignal(voltage, sim.sampleRate, color: Color.Blue, yOffset: -70);
             formsPlot1.plt.YLabel("Membrane Potential (mV)");
             formsPlot1.plt.XLabel("Simulation Time (ms)");
             formsPlot1.plt.Title("Hodgkin–Huxley model: Realtime Simulation");
-            formsPlot1.plt.AxisAuto(0);
+            formsPlot1.plt.AxisAuto(0, 0);
+            formsPlot1.plt.Axis(y1: -100, y2: 50);
             formsPlot1.Render();
         }
 
