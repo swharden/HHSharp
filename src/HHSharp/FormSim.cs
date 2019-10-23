@@ -22,6 +22,15 @@ namespace HHSharp
             RunSimulation();
         }
 
+        private void FormSim_Load(object sender, EventArgs e)
+        {
+            if (Debugger.IsAttached)
+            {
+                using (var frm = new FormLive())
+                    frm.ShowDialog();
+            }
+        }
+
         private double[] GenerateStimulusWaveform(int pointCount)
         {
             double[] stimulus = new double[pointCount];

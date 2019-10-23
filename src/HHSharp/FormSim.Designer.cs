@@ -614,6 +614,7 @@
             this.Controls.Add(this.groupBox1);
             this.Name = "FormSim";
             this.Text = "HHSharp";
+            this.Load += new System.EventHandler(this.FormSim_Load);
             ((System.ComponentModel.ISupportInitialize)(this.nudDurationMs)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
