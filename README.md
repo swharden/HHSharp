@@ -9,6 +9,8 @@
 
 HHSharp uses a simulation model which calculates channel conductances and membrane potential at discrete time points eliminating the need for a differential equation solver and allowing the model cell to be challenged with complex stimuluation waveforms. [ScottPlot](https://github.com/swharden/ScottPlot) is used to interactively display simulation results. [pyHH](https://github.com/swharden/pyHH) is a similar project for Python.
 
+![](dev/screenshot-realtime.gif)
+
 ### Download
 * Click-to-run EXE: **[HHSharp.zip](/download/HHSharp.zip)**
 * Source code is in: **[src/](/download/)**
@@ -17,9 +19,9 @@ HHSharp uses a simulation model which calculates channel conductances and membra
 
 ### Action Potentials in Neural Membranes
 Action potentials are self-propagating voltage fluctuations that occur as voltage-gated ion channels open and close. The Hodgkin–Huxley model describes 3 ion channels, two of which contain voltage-dependent gates:
-* **voltage-gated Na+ channel** with 2 voltage-dependent gates (`m` and `h`)
-* **voltage-gated K+ channel** with 1 voltage-dependent gate (`n`)
-* **K+ leak channel** with no gate
+* **Voltage-gated Na⁺ channel** with 2 voltage-dependent gates (`m` and `h`)
+* **Voltage-gated K⁺ channel** with 1 voltage-dependent gate (`n`)
+* **K⁺ leak channel** with no gate
 
 Voltage-gated channel conductances are dependent on gate activity. Gate activity is dependent on voltage and time. Gates open and close exponentially with time-constants (`alpha` and `beta`) which depend on voltage. Voltage is a function of the sum of channel currents and is influenced by capacitance. 
 
@@ -35,7 +37,7 @@ Our goal in software is to know how much current every channel is passing at eac
 
 ### Simulating the _passive_ component of neurons
 
-After the 3 gates are modeled in software, we can determine the conductance of voltage-gated Na+ and K+ channels and assume a constant conductance of Kleak channels. By combining these 3 channel conductances with the present membrane voltage and equilibrium potential for Na+ and K+ we can calculate the channel currents. By summing all channel currents together, we can calculate the total neuron membrane current. When combined with cell capacitance (Cm), we can calculate the change in voltage over a small step in time ([HHModel.cs#L76-L83](https://github.com/swharden/HHSharp/blob/7967a0c935bf7734f95562b5fe6263b724ab6582/src/HHSharp/HHModel.cs#L76-L83)). 
+After the 3 gates are modeled in software, we can determine the conductance of voltage-gated Na⁺ and K⁺ channels and assume a constant conductance of Kleak channels. By combining these 3 channel conductances with the present membrane voltage and equilibrium potential for Na⁺ and K⁺ we can calculate the channel currents. By summing all channel currents together, we can calculate the total neuron membrane current. When combined with cell capacitance (Cm), we can calculate the change in voltage over a small step in time ([HHModel.cs#L76-L83](https://github.com/swharden/HHSharp/blob/7967a0c935bf7734f95562b5fe6263b724ab6582/src/HHSharp/HHModel.cs#L76-L83)). 
 
 With this new voltage in-hand we can start over and calculate the voltage-gated channel gate states which are slightly different now because voltage has changed. By iterating this process (typically in 0.01 ms steps) we can simulate the membrane voltage as time passes ([HHModel.cs#L85-L92](https://github.com/swharden/HHSharp/blob/7967a0c935bf7734f95562b5fe6263b724ab6582/src/HHSharp/HHModel.cs#L85-L92)).
 

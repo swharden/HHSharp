@@ -1,6 +1,6 @@
 ﻿namespace HHSharp
 {
-    partial class FormMain
+    partial class FormSim
     {
         /// <summary>
         /// Required designer variable.
@@ -64,6 +64,7 @@
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.rbDisplayCurrent = new System.Windows.Forms.RadioButton();
             this.rbDisplayActivity = new System.Windows.Forms.RadioButton();
+            this.btnLaunchLive = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nudDurationMs)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCm)).BeginInit();
@@ -546,7 +547,7 @@
             this.rtbStatus.Enabled = false;
             this.rtbStatus.Location = new System.Drawing.Point(12, 515);
             this.rtbStatus.Name = "rtbStatus";
-            this.rtbStatus.Size = new System.Drawing.Size(203, 75);
+            this.rtbStatus.Size = new System.Drawing.Size(203, 53);
             this.rtbStatus.TabIndex = 15;
             this.rtbStatus.Text = "status";
             // 
@@ -585,11 +586,22 @@
             this.rbDisplayActivity.UseVisualStyleBackColor = true;
             this.rbDisplayActivity.CheckedChanged += new System.EventHandler(this.rbDisplayActivity_CheckedChanged);
             // 
-            // FormMain
+            // btnLaunchLive
+            // 
+            this.btnLaunchLive.Location = new System.Drawing.Point(12, 598);
+            this.btnLaunchLive.Name = "btnLaunchLive";
+            this.btnLaunchLive.Size = new System.Drawing.Size(144, 23);
+            this.btnLaunchLive.TabIndex = 16;
+            this.btnLaunchLive.Text = "Launch realtime simulator";
+            this.btnLaunchLive.UseVisualStyleBackColor = true;
+            this.btnLaunchLive.Click += new System.EventHandler(this.btnLaunchLive_Click);
+            // 
+            // FormSim
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1102, 633);
+            this.Controls.Add(this.btnLaunchLive);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.rtbStatus);
             this.Controls.Add(this.tableLayoutPanel1);
@@ -600,7 +612,7 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.groupBox1);
-            this.Name = "FormMain";
+            this.Name = "FormSim";
             this.Text = "HHSharp";
             ((System.ComponentModel.ISupportInitialize)(this.nudDurationMs)).EndInit();
             this.groupBox1.ResumeLayout(false);
@@ -665,6 +677,7 @@
         private ScottPlot.FormsPlot formsPlot3;
         private System.Windows.Forms.RadioButton rbDisplayCurrent;
         private System.Windows.Forms.RadioButton rbDisplayActivity;
+        private System.Windows.Forms.Button btnLaunchLive;
     }
 }
 

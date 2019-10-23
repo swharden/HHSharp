@@ -16,7 +16,8 @@ namespace HHSharp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormMain());
+            Application.Run(new FormSim());
+            //Application.Run(new FormLive());
         }
     }
 }

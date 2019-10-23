@@ -11,9 +11,9 @@ using System.Windows.Forms;
 
 namespace HHSharp
 {
-    public partial class FormMain : Form
+    public partial class FormSim : Form
     {
-        public FormMain()
+        public FormSim()
         {
             InitializeComponent();
             formsPlot1.plt.mouseTracker.lowQualityWhileInteracting = false;
@@ -96,7 +96,7 @@ namespace HHSharp
             }
 
             double elapsedSec = (double)stopwatch.ElapsedTicks / Stopwatch.Frequency;
-            string message = string.Format("Simulated {2:n0} time points in {0:0.00} ms ({1:0.00} Hz)",
+            string message = string.Format("Simulated {2:n0} time points\nin {0:0.00} ms ({1:0.00} Hz)",
                 elapsedSec * 1000.0, 1 / elapsedSec, pointCount);
             rtbStatus.Text = message;
 
@@ -204,6 +204,12 @@ namespace HHSharp
                 formsPlot1.Render(true);
                 formsPlot3.Render(true);
             }
+        }
+
+        private void btnLaunchLive_Click(object sender, EventArgs e)
+        {
+            using (var frm = new FormLive())
+                frm.ShowDialog();
         }
     }
 }

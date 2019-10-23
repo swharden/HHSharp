@@ -52,17 +52,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FormMain.cs">
+    <Compile Include="FormLive.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormMain.Designer.cs">
-      <DependentUpon>FormMain.cs</DependentUpon>
+    <Compile Include="FormLive.Designer.cs">
+      <DependentUpon>FormLive.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormSim.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSim.Designer.cs">
+      <DependentUpon>FormSim.cs</DependentUpon>
     </Compile>
     <Compile Include="HHModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="FormMain.resx">
-      <DependentUpon>FormMain.cs</DependentUpon>
+    <Compile Include="Simulator.cs" />
+    <EmbeddedResource Include="FormLive.resx">
+      <DependentUpon>FormLive.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSim.resx">
+      <DependentUpon>FormSim.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
