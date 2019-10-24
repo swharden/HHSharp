@@ -32,8 +32,8 @@
             this.formsPlot1 = new ScottPlot.FormsPlot();
             this.nudCurrentConstant = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
-            this.nudCurrentPulse = new System.Windows.Forms.NumericUpDown();
-            this.nudPulseLengthMs = new System.Windows.Forms.NumericUpDown();
+            this.nudSquarePulseAmp = new System.Windows.Forms.NumericUpDown();
+            this.nudSquarePulseLength = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnDeliverPulse = new System.Windows.Forms.Button();
@@ -44,16 +44,17 @@
             this.label4 = new System.Windows.Forms.Label();
             this.cbSimulationSlow = new System.Windows.Forms.CheckBox();
             this.cbSimulationRun = new System.Windows.Forms.CheckBox();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.timerDisplay = new System.Windows.Forms.Timer(this.components);
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.cbEpsc = new System.Windows.Forms.CheckBox();
             this.nudEpscAmp = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.nudEpscFreq = new System.Windows.Forms.NumericUpDown();
+            this.btnReset = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nudCurrentConstant)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudCurrentPulse)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudPulseLengthMs)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudSquarePulseAmp)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudSquarePulseLength)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -93,6 +94,7 @@
             this.nudCurrentConstant.Name = "nudCurrentConstant";
             this.nudCurrentConstant.Size = new System.Drawing.Size(59, 20);
             this.nudCurrentConstant.TabIndex = 1;
+            this.nudCurrentConstant.ValueChanged += new System.EventHandler(this.nudCurrentConstant_ValueChanged);
             // 
             // label2
             // 
@@ -103,45 +105,45 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "µA/cm²";
             // 
-            // nudCurrentPulse
+            // nudSquarePulseAmp
             // 
-            this.nudCurrentPulse.Location = new System.Drawing.Point(6, 19);
-            this.nudCurrentPulse.Maximum = new decimal(new int[] {
+            this.nudSquarePulseAmp.Location = new System.Drawing.Point(6, 19);
+            this.nudSquarePulseAmp.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
-            this.nudCurrentPulse.Minimum = new decimal(new int[] {
+            this.nudSquarePulseAmp.Minimum = new decimal(new int[] {
             1000,
             0,
             0,
             -2147483648});
-            this.nudCurrentPulse.Name = "nudCurrentPulse";
-            this.nudCurrentPulse.Size = new System.Drawing.Size(59, 20);
-            this.nudCurrentPulse.TabIndex = 4;
-            this.nudCurrentPulse.Value = new decimal(new int[] {
+            this.nudSquarePulseAmp.Name = "nudSquarePulseAmp";
+            this.nudSquarePulseAmp.Size = new System.Drawing.Size(59, 20);
+            this.nudSquarePulseAmp.TabIndex = 4;
+            this.nudSquarePulseAmp.Value = new decimal(new int[] {
             50,
             0,
             0,
             0});
             // 
-            // nudPulseLengthMs
+            // nudSquarePulseLength
             // 
-            this.nudPulseLengthMs.Increment = new decimal(new int[] {
+            this.nudSquarePulseLength.Increment = new decimal(new int[] {
             100,
             0,
             0,
             0});
-            this.nudPulseLengthMs.Location = new System.Drawing.Point(6, 45);
-            this.nudPulseLengthMs.Maximum = new decimal(new int[] {
+            this.nudSquarePulseLength.Location = new System.Drawing.Point(6, 45);
+            this.nudSquarePulseLength.Maximum = new decimal(new int[] {
             10000,
             0,
             0,
             0});
-            this.nudPulseLengthMs.Name = "nudPulseLengthMs";
-            this.nudPulseLengthMs.Size = new System.Drawing.Size(59, 20);
-            this.nudPulseLengthMs.TabIndex = 5;
-            this.nudPulseLengthMs.Value = new decimal(new int[] {
+            this.nudSquarePulseLength.Name = "nudSquarePulseLength";
+            this.nudSquarePulseLength.Size = new System.Drawing.Size(59, 20);
+            this.nudSquarePulseLength.TabIndex = 5;
+            this.nudSquarePulseLength.Value = new decimal(new int[] {
             200,
             0,
             0,
@@ -159,10 +161,10 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.btnDeliverPulse);
-            this.groupBox1.Controls.Add(this.nudCurrentPulse);
+            this.groupBox1.Controls.Add(this.nudSquarePulseAmp);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.nudPulseLengthMs);
+            this.groupBox1.Controls.Add(this.nudSquarePulseLength);
             this.groupBox1.Location = new System.Drawing.Point(12, 159);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(120, 101);
@@ -241,6 +243,7 @@
             this.cbSimulationSlow.TabIndex = 1;
             this.cbSimulationSlow.Text = "slow motion";
             this.cbSimulationSlow.UseVisualStyleBackColor = true;
+            this.cbSimulationSlow.CheckedChanged += new System.EventHandler(this.cbSimulationSlow_CheckedChanged);
             // 
             // cbSimulationRun
             // 
@@ -255,11 +258,11 @@
             this.cbSimulationRun.UseVisualStyleBackColor = true;
             this.cbSimulationRun.CheckedChanged += new System.EventHandler(this.cbSimulationRun_CheckedChanged);
             // 
-            // timer1
+            // timerDisplay
             // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 10;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.timerDisplay.Enabled = true;
+            this.timerDisplay.Interval = 20;
+            this.timerDisplay.Tick += new System.EventHandler(this.timerDisplay_Tick);
             // 
             // groupBox4
             // 
@@ -347,11 +350,25 @@
             0});
             this.nudEpscFreq.ValueChanged += new System.EventHandler(this.nudEpscFreq_ValueChanged);
             // 
+            // btnReset
+            // 
+            this.btnReset.BackColor = System.Drawing.Color.Red;
+            this.btnReset.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReset.ForeColor = System.Drawing.Color.White;
+            this.btnReset.Location = new System.Drawing.Point(12, 365);
+            this.btnReset.Name = "btnReset";
+            this.btnReset.Size = new System.Drawing.Size(120, 63);
+            this.btnReset.TabIndex = 11;
+            this.btnReset.Text = "RESET";
+            this.btnReset.UseVisualStyleBackColor = false;
+            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
+            // 
             // FormLive
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1225, 440);
+            this.Controls.Add(this.btnReset);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -361,8 +378,8 @@
             this.Text = "HHSharp: Live Neuron Model";
             this.Load += new System.EventHandler(this.FormLive_Load);
             ((System.ComponentModel.ISupportInitialize)(this.nudCurrentConstant)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudCurrentPulse)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudPulseLengthMs)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudSquarePulseAmp)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudSquarePulseLength)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -382,8 +399,8 @@
         private ScottPlot.FormsPlot formsPlot1;
         private System.Windows.Forms.NumericUpDown nudCurrentConstant;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.NumericUpDown nudCurrentPulse;
-        private System.Windows.Forms.NumericUpDown nudPulseLengthMs;
+        private System.Windows.Forms.NumericUpDown nudSquarePulseAmp;
+        private System.Windows.Forms.NumericUpDown nudSquarePulseLength;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button btnDeliverPulse;
@@ -393,7 +410,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.CheckBox cbSimulationSlow;
         private System.Windows.Forms.CheckBox cbSimulationRun;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer timerDisplay;
         private System.Windows.Forms.Label lblTime;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.CheckBox cbEpsc;
@@ -401,5 +418,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.NumericUpDown nudEpscFreq;
+        private System.Windows.Forms.Button btnReset;
     }
 }

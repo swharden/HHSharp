@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace HHSharp
 {
@@ -14,20 +15,39 @@ namespace HHSharp
         public readonly double[] voltage;
         public int voltageIndex;
         public double totalRunTimeSec;
+        public double constantCurrent;
+        public bool slowMotion = false;
 
+        public Random rand = new Random();
         public double epscAmplitude, epscFrequencyHz;
         public readonly List<double> epscs = new List<double>();
-        public Random rand = new Random();
+
+        public double squarePulseAmplitude, squarePulseMsRemaining;
 
         public readonly double stepSizeMs = 0.05;
         public double sampleRateHz { get { return 1000.0 / stepSizeMs; } }
 
-        public Simulator(double lengthMs = 500, double initialCurrent = 20, double stepSizeMs = 0.05)
+        public Timer timer;
+
+        public Simulator(double lengthMs = 1000, double constantCurrent = 0, double stepSizeMs = 0.05)
         {
             int pointCount = (int)(lengthMs / stepSizeMs);
             this.stepSizeMs = stepSizeMs;
+            this.constantCurrent = constantCurrent;
+
             voltage = new double[pointCount];
-            StepForward(pointCount, initialCurrent);
+            StepForward(pointCount);
+
+            timer = new Timer(10);
+            timer.Elapsed += new ElapsedEventHandler(TimerTick);
+            timer.Start();
+        }
+
+        private void TimerTick(object source, ElapsedEventArgs e)
+        {
+            int stepsPerTick = (int)(timer.Interval / stepSizeMs);
+            if (slowMotion) stepsPerTick /= 50;
+            StepForward(stepsPerTick);
         }
 
         private double EpscWaveform(double timeMs, double alpha = .1)
@@ -60,11 +80,19 @@ namespace HHSharp
             return current;
         }
 
-        public void StepForward(int steps, double stimulusCurrent)
+        private double GetSquarePulseCurrent()
+        {
+            double current = (squarePulseMsRemaining > 0) ? squarePulseAmplitude : 0;
+            squarePulseMsRemaining -= stepSizeMs;
+            return current;
+        }
+
+        public void StepForward(int steps)
         {
             for (int i = 0; i < steps; i++)
             {
-                model.StepForward(stimulusCurrent + GetEpscCurrent(), stepSizeMs);
+                double stimulus = constantCurrent + GetEpscCurrent() + GetSquarePulseCurrent();
+                model.StepForward(stimulus, stepSizeMs);
                 voltage[voltageIndex++] = model.Vm;
                 if (voltageIndex >= voltage.Length) voltageIndex = 0;
             }

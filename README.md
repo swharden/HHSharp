@@ -3,17 +3,21 @@
 [![](https://img.shields.io/azure-devops/build/swharden/swharden/3?label=Build&logo=azure%20pipelines)](https://dev.azure.com/swharden/swharden/_build/latest?definitionId=3&branchName=master)
 [![](https://img.shields.io/azure-devops/tests/swharden/swharden/3?label=Tests&logo=azure%20pipelines)](https://dev.azure.com/swharden/swharden/_build/latest?definitionId=3&branchName=master)
 
-**HHSharp is an interactive Hodgkin-Huxley neuron simulator**. The neuron model and simulation code ([HHModel.cs](src/HHSharp/HHModel.cs)) contains fewer than 100 lines and was written in C# using an object-oriented coding style. Code comments even cite specific equations from Hodgkin and Huxley's 1952 manuscript.
+**HHSharp is an interactive Hodgkin-Huxley neuron simulator**. The neuron model source code ([HHModel.cs](src/HHSharp/HHModel.cs)) contains fewer than 100 lines and was written in C# using an object-oriented coding style. Code comments even cite specific equations from Hodgkin and Huxley's 1952 manuscript.
 
 ![](dev/screenshot.png)
 
-HHSharp uses a simulation model which calculates channel conductances and membrane potential at discrete time points eliminating the need for a differential equation solver and allowing the model cell to be challenged with complex stimuluation waveforms. [ScottPlot](https://github.com/swharden/ScottPlot) is used to interactively display simulation results.
+HHSharp uses a simulation model which calculates channel conductances and membrane potential at discrete time points eliminating the need for a differential equation solver and allowing the model cell to be challenged with complex stimulation waveforms. 
 
 ![](dev/screenshot-realtime.gif)
 
+Although HHSharp's neuron model ([HHModel.cs](src/HHSharp/HHModel.cs)) can be interacted with directly, a higher-level real-time simulator ([Simulator.cs](src/HHSharp/Simulator.cs)) is available which is designed to challenge the model neuron with complex currents _in real time_, and is capable of dynamically generating random stimulii such as spontaneous excitatory post-synaptic currents (sEPSCs). Since the real-time simulator uses parallel-processing, it does not slow down GUI interactions.
+
+![](dev/screenshot-sEPSCs.gif)
+
 ### Download
 * Click-to-run EXE: **[HHSharp.zip](/download/HHSharp.zip)**
-* Source code is in: **[src/](/src/)**
+* Source code: **[src/](/src/)**
 
 ## Simulating the Hodgkin–Huxley Model in Software
 
@@ -42,7 +46,12 @@ After the 3 gates are modeled in software, we can determine the conductance of v
 With this new voltage in-hand we can start over and calculate the voltage-gated channel gate states which are slightly different now because voltage has changed. By iterating this process (typically in 0.01 ms steps) we can simulate the membrane voltage as time passes ([HHModel.cs#L85-L92](https://github.com/swharden/HHSharp/blob/7967a0c935bf7734f95562b5fe6263b724ab6582/src/HHSharp/HHModel.cs#L85-L92)).
 
 ### Additional Resources
+
+#### Technical
 * [pyHH](https://github.com/swharden/pyHH) is a similar project for Python
+* [ScottPlot](https://github.com/swharden/ScottPlot) is used to interactively display simulation results
+
+#### Biological
 * [Hodgkin and Huxley, 1952](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1392413/pdf/jphysiol01442-0106.pdf) (the original manuscript)
 * [The Hodgkin-Huxley Mode](http://www.genesis-sim.org/GENESIS/iBoG/iBoGpdf/chapt4.pdf) (The GENESIS Simulator, Chapter 4)
 * Wikipedia: [Hodgkin–Huxley model](https://en.wikipedia.org/wiki/Hodgkin%E2%80%93Huxley_model)
