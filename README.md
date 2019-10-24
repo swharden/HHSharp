@@ -7,11 +7,9 @@
 
 ![](dev/screenshot.png)
 
-HHSharp uses a simulation model which calculates channel conductances and membrane potential at discrete time points eliminating the need for a differential equation solver and allowing the model cell to be challenged with complex stimulation waveforms. 
+Although HHSharp's neuron model ([HHModel.cs](src/HHSharp/HHModel.cs)) can be interacted with directly, a higher-level real-time simulator ([Simulator.cs](src/HHSharp/Simulator.cs)) is available which is designed to challenge the model neuron with complex currents _in real time_, and is capable of dynamically generating random stimulii such as spontaneous excitatory post-synaptic currents (sEPSCs). Since the real-time simulator uses parallel-processing, it does not slow down GUI interactions.
 
 ![](dev/screenshot-sEPSCs.gif)
-
-Although HHSharp's neuron model ([HHModel.cs](src/HHSharp/HHModel.cs)) can be interacted with directly, a higher-level real-time simulator ([Simulator.cs](src/HHSharp/Simulator.cs)) is available which is designed to challenge the model neuron with complex currents _in real time_, and is capable of dynamically generating random stimulii such as spontaneous excitatory post-synaptic currents (sEPSCs). Since the real-time simulator uses parallel-processing, it does not slow down GUI interactions.
 
 ### Download
 * Click-to-run EXE: **[HHSharp.zip](/download/HHSharp.zip)**
