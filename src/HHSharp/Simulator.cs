@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Timers;
 
 namespace HHSharp
@@ -14,18 +11,17 @@ namespace HHSharp
 
         public readonly double[] voltage;
         public int voltageIndex;
-        public double totalRunTimeSec;
-        public double constantCurrent;
+
+        public double totalRunTimeSec, stepSizeMs;
+
+        public double sampleRateHz { get { return 1000.0 / stepSizeMs; } }
         public bool slowMotion = false;
 
+        public double constantCurrent;
+        public double squarePulseAmplitude, squarePulseMsRemaining;
         public Random rand = new Random();
         public double epscAmplitude, epscFrequencyHz;
         public readonly List<double> epscs = new List<double>();
-
-        public double squarePulseAmplitude, squarePulseMsRemaining;
-
-        public readonly double stepSizeMs = 0.05;
-        public double sampleRateHz { get { return 1000.0 / stepSizeMs; } }
 
         public Timer timer;
 
@@ -39,11 +35,11 @@ namespace HHSharp
             StepForward(pointCount);
 
             timer = new Timer(10);
-            timer.Elapsed += new ElapsedEventHandler(TimerTick);
+            timer.Elapsed += new ElapsedEventHandler(OnTimerTick);
             timer.Start();
         }
 
-        private void TimerTick(object source, ElapsedEventArgs e)
+        private void OnTimerTick(object source, ElapsedEventArgs e)
         {
             int stepsPerTick = (int)(timer.Interval / stepSizeMs);
             if (slowMotion) stepsPerTick /= 50;
@@ -69,13 +65,14 @@ namespace HHSharp
             while ((epscs.Count > 1) && (epscs.Last() > maxEpscPoints))
                 epscs.RemoveAt(epscs.Count - 1);
 
+            // advance EPSC times
+            for (int i = 0; i < epscs.Count; i++)
+                epscs[i] = epscs[i] + 1;
+
             // summate EPSCs
             double current = 0;
             for (int i = 0; i < epscs.Count; i++)
-            {
-                epscs[i] = epscs[i] + 1;
                 current += EpscWaveform(epscs[i] * stepSizeMs);
-            }
 
             return current;
         }
