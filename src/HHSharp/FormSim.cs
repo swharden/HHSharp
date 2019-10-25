@@ -130,7 +130,7 @@ namespace HHSharp
                 formsPlot2.plt.YLabel("Activation (frac)");
                 formsPlot2.plt.PlotSignal(stateH, sampleRate, label: "h");
                 formsPlot2.plt.PlotSignal(stateM, sampleRate, label: "m");
-                formsPlot2.plt.PlotSignal(stateN, sampleRate, label: "m");
+                formsPlot2.plt.PlotSignal(stateN, sampleRate, label: "n");
             }
             else if (rbDisplayCurrent.Checked == true)
             {
