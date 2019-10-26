@@ -63,6 +63,9 @@ namespace HHSharp
         private void RunSimulation()
         {
 
+            // For simple simulations, just use the simulator class.
+            // Interact with the HHModel directly (like this) only if you want to do a lot of tweaking.
+
             Stopwatch stopwatch = Stopwatch.StartNew();
 
             double stepSizeMsec = .01;
