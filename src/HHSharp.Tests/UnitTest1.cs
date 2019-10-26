@@ -6,17 +6,20 @@ namespace HHSharp.Tests
     [TestClass]
     public class UnitTest1
     {
-        private bool CloseEnough(double a, double b, double within = 0.00001)
+        private bool CloseEnough(double a, double b, double within = 0.0000001)
         {
             return Math.Abs(a - b) < within;
         }
 
         [TestMethod]
-        public void VerifySimulationValues()
+        public void Test_HHModel_VerifySimulationValues()
         {
-            // simulate constant excitatory current for 50ms
+            // interact with the model directly
             var model = new HHModel();
-            for (int i = 0; i < 5_000; i++)
+
+            // simulate constant excitatory current for 50ms
+            int iterations = 5_000;
+            for (int i = 0; i < iterations; i++)
                 model.StepForward(stimulusCurrent: 20, stepSizeMs: 0.01);
 
             Console.WriteLine(model);
@@ -38,6 +41,15 @@ namespace HHSharp.Tests
             Assert.IsTrue(CloseEnough(model.INa, -184.843379721599));
             Assert.IsTrue(CloseEnough(model.IK, 261.831569991066));
             Assert.IsTrue(CloseEnough(model.IKleak, 0.633203138741839));
+        }
+
+        [TestMethod]
+        public void Test_Simulator_VerifySimulationValues()
+        {
+            // run a simulation and verify the results are accurate (assume is Vm is accurate, the rest are too)
+            var sim = new Simulator(lengthMs: 50, constantCurrent: 20, stepSizeMs: 0.01, start: false);
+            Console.WriteLine(sim);
+            Assert.IsTrue(CloseEnough(sim.voltage[sim.voltage.Length - 1], 12.1344631950574));
         }
     }
 }
