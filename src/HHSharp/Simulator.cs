@@ -25,7 +25,7 @@ namespace HHSharp
 
         public Timer timer;
 
-        public Simulator(double lengthMs = 1000, double constantCurrent = 0, double stepSizeMs = 0.05)
+        public Simulator(double lengthMs = 1000, double constantCurrent = 0, double stepSizeMs = 0.05, bool start = true)
         {
             int pointCount = (int)(lengthMs / stepSizeMs);
             this.stepSizeMs = stepSizeMs;
@@ -36,7 +36,13 @@ namespace HHSharp
 
             timer = new Timer(10);
             timer.Elapsed += new ElapsedEventHandler(OnTimerTick);
-            timer.Start();
+            if (start)
+                timer.Start();
+        }
+
+        public override string ToString()
+        {
+            return $"HH Model Simulator at {totalRunTimeSec} sec (modem Vm = {model.Vm} mV)";
         }
 
         private void OnTimerTick(object source, ElapsedEventArgs e)
