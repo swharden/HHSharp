@@ -16,9 +16,9 @@ namespace HHSharp
         public FormSim()
         {
             InitializeComponent();
-            formsPlot1.plt.mouseTracker.lowQualityWhileInteracting = false;
-            formsPlot3.plt.mouseTracker.lowQualityWhileInteracting = false;
-            formsPlot2.plt.mouseTracker.lowQualityWhileInteracting = false;
+            formsPlot1.Configure(lowQualityWhileDragging: false);
+            formsPlot2.Configure(lowQualityWhileDragging: false);
+            formsPlot3.Configure(lowQualityWhileDragging: false);
             RunSimulation();
         }
 

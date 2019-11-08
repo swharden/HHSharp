@@ -18,7 +18,7 @@ namespace HHSharp
         public FormLive()
         {
             InitializeComponent();
-            formsPlot1.plt.mouseTracker.lowQualityWhileInteracting = false;
+            formsPlot1.Configure(lowQualityWhileDragging: false);
         }
 
         private void FormLive_Load(object sender, EventArgs e)
