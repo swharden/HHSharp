@@ -46,9 +46,9 @@ namespace HHSharp
 
     public class HHModel
     {
-        public double ENa = 115, EK = -12, EKleak = 10.6; // Hodgkin & Huxley (1952) Table 3 (unlts = mV)
-        public double gNa = 120, gK = 36, gKleak = 0.3; // Hodgkin & Huxley (1952) Table 3 (unlts = mS/cm²)
-        public double Cm = 1; // Hodgkin & Huxley (1952) Table 3 (unlts = µF/cm²)
+        public double ENa = 115, EK = -12, EKleak = 10.6; // Hodgkin & Huxley (1952) Table 3 (units = mV)
+        public double gNa = 120, gK = 36, gKleak = 0.3; // Hodgkin & Huxley (1952) Table 3 (units = mS/cm²)
+        public double Cm = 1; // Hodgkin & Huxley (1952) Table 3 (units = µF/cm²)
 
         public VoltageGate m = new VgscActivationGate();
         public VoltageGate h = new VgscInactivationGate();
@@ -75,8 +75,8 @@ namespace HHSharp
             n.UpdateTimeConstants(Vm);
         }
 
-        public double INa, IK, IKleak, Isum; // (unlts = µA/cm²)
-        public double Vm; // (unlts = mV)
+        public double INa, IK, IKleak, Isum; // (units = µA/cm²)
+        public double Vm; // (units = mV)
         private void UpdateCurrentsAndVoltage(double stimulusCurrent, double deltaTms) // Hodgkin & Huxley (1952) equation 33
         {
             INa = Math.Pow(m.activation, 3) * gNa * h.activation * (Vm - ENa);
