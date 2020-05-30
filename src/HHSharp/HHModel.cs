@@ -1,4 +1,4 @@
-// Hodgkin-Huxley neuron simulator by Scott W Harden
+// Hodgkin-Huxley neuron simulator by Scott W Harden (https://github.com/swharden/HHSharp)
 // Equations reference Hodgkin & Huxley (1952) https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1392413/
 
 using System;
